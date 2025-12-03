@@ -34,6 +34,7 @@ import { usePathname, useRouter } from "next/navigation";
 import useRole from "@/hooks/useRole";
 import { AuthContext } from "@/context/AuthContext";
 import { toast } from "react-hot-toast";
+import Image from "next/image";
 
 export default function DashboardSidebar({ open, setOpen }) {
   const pathname = usePathname();
@@ -195,7 +196,7 @@ useEffect(() => {
       textLight: "text-gray-600",
       border: "border-blue-100",
       hover: "hover:bg-blue-50/80",
-      active: "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg",
+      active: "bg-linear-to-r from-blue-500 to-purple-600 text-white shadow-lg",
       shadow: "shadow-xl",
     },
     dark: {
@@ -205,7 +206,7 @@ useEffect(() => {
       textLight: "text-gray-300",
       border: "border-gray-700",
       hover: "hover:bg-gray-700/80",
-      active: "bg-gradient-to-r from-blue-600 to-purple-700 text-white shadow-lg",
+      active: "bg-linear-to-r from-blue-600 to-purple-700 text-white shadow-lg",
       shadow: "shadow-2xl",
     },
   };
@@ -334,7 +335,7 @@ useEffect(() => {
       {/* Role Update Notification */}
       {showRoleUpdate && (
         <div className="fixed top-4 right-4 z-50 animate-fade-in">
-          <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-3">
+          <div className="bg-linear-to-r from-blue-500 to-purple-600 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-3">
             <FaBell className="animate-pulse" />
             <div>
               <p className="font-semibold text-sm">Role Updated!</p>
@@ -368,7 +369,7 @@ useEffect(() => {
             {open ? (
               <>
                 <div className="flex items-center gap-2">
-                  <div className={`w-8 h-8 rounded-xl bg-gradient-to-r ${currentConfig.color} flex items-center justify-center shadow-md`}>
+                  <div className={`w-8 h-8 rounded-xl bg-linear-to-r ${currentConfig.color} flex items-center justify-center shadow-md`}>
                     {currentConfig.icon}
                   </div>
                   <div>
@@ -391,7 +392,7 @@ useEffect(() => {
             ) : (
               <>
                 <div
-                  className={`w-8 h-8 rounded-xl bg-gradient-to-r ${currentConfig.color} flex items-center justify-center shadow-md cursor-pointer`}
+                  className={`w-8 h-8 rounded-xl bg-linear-to-r ${currentConfig.color} flex items-center justify-center shadow-md cursor-pointer`}
                   onClick={toggleSidebar}
                 >
                   {currentConfig.icon}
@@ -423,7 +424,7 @@ useEffect(() => {
                 onClick={() => isMobile && setOpen(false)}
               >
                 <span
-                  className={`text-base flex-shrink-0 transition-transform duration-300 ${
+                  className={`text-base shrink-0 transition-transform duration-300 ${
                     isActive
                       ? "text-white transform scale-105"
                       : "text-gray-500 group-hover:text-blue-600"
@@ -448,10 +449,12 @@ useEffect(() => {
               open ? "gap-2 justify-start" : "justify-center"
             }`}
           >
-            <div className="relative flex-shrink-0">
+            <div className="relative shrink-0">
               <div className={`w-10 h-10 rounded-full border-2 border-white shadow-md overflow-hidden flex items-center justify-center ${avatarColor} ${!userAvatar ? 'animate-pulse' : ''}`}>
                 {userAvatar ? (
                   <img
+                  width={700}
+                  height={300}
                     src={userAvatar}
                     alt={`${displayName} avatar`}
                     className="w-full h-full object-cover"
@@ -511,7 +514,7 @@ useEffect(() => {
               onClick={handleLogout}
               className={`flex items-center justify-center p-2 rounded-lg transition-all duration-300 ${
                 open ? "flex-1" : "w-10 h-10"
-              } bg-gradient-to-r from-red-500/10 to-pink-500/10 text-red-600 hover:from-red-500/20 hover:to-pink-500/20 hover:text-red-700 border border-red-200/50 hover:border-red-300/50`}
+              } bg-linear-to-r from-red-500/10 to-pink-500/10 text-red-600 hover:from-red-500/20 hover:to-pink-500/20 hover:text-red-700 border border-red-200/50 hover:border-red-300/50`}
             >
               <FaSignOutAlt className="w-4 h-4" />
               {open && <span className="ml-2 text-xs font-medium">Logout</span>}
@@ -523,7 +526,7 @@ useEffect(() => {
       {isMobile && !open && (
         <button
           onClick={toggleSidebar}
-          className="fixed top-3 left-3 z-50 p-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl group"
+          className="fixed top-3 left-3 z-50 p-2 bg-linear-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl group"
         >
           <FaBars className="w-4 h-4 transition-transform group-hover:rotate-90" />
         </button>

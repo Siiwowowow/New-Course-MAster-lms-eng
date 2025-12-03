@@ -110,7 +110,7 @@ export default function Navbar() {
       >
         <Home size={18} /> Home
         {pathname === "/" && (
-          <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[#35556e] rounded"></span>
+          <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-[#35556e] rounded"></span>
         )}
       </Link>
 
@@ -122,7 +122,7 @@ export default function Navbar() {
       >
         <BookOpen size={18} /> Courses
         {pathname === "/courses" && (
-          <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[#35556e] rounded"></span>
+          <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-[#35556e] rounded"></span>
         )}
       </Link>
 
@@ -134,7 +134,7 @@ export default function Navbar() {
       >
         <LayoutDashboard size={18} /> Dashboard
         {pathname === "/dashboard" && (
-          <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[#35556e] rounded"></span>
+          <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-[#35556e] rounded"></span>
         )}
       </Link>
     </div>
@@ -214,14 +214,14 @@ export default function Navbar() {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box `z-[1]` mt-3 w-52 p-2 shadow"
             >
               {link}
             </ul>
           </div>
 
           <Link href="/" className="btn btn-ghost text-xl font-bold">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#35556e] to-[#4a8bb8] -ml-6 lg:ml-0">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#35556e] to-[#4a8bb8] -ml-6 lg:ml-0">
               CourseMaster
             </span>
           </Link>
@@ -238,7 +238,7 @@ export default function Navbar() {
         <div className="navbar-end flex gap-2 items-center">
           <button className="btn btn-ghost btn-circle relative hover:bg-gray-100 transition-all border border-gray-100 hover:border-gray-300">
             <Bell className="w-5 h-5" />
-            <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full border-2 border-white shadow-sm">
+            <span className="absolute -top-1 -right-1 bg-linear-to-r from-red-500 to-pink-500 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full border-2 border-white shadow-sm">
               3
             </span>
           </button>
@@ -251,7 +251,7 @@ export default function Navbar() {
 
               <Link
                 href="/signup"
-                className="btn btn-sm bg-gradient-to-r from-[#35556e] to-[#4a8bb8] text-white flex gap-2 items-center hover:shadow-lg hover:scale-105 transition-all"
+                className="btn btn-sm bg-linear-to-r from-[#35556e] to-[#4a8bb8] text-white flex gap-2 items-center hover:shadow-lg hover:scale-105 transition-all"
               >
                 <UserPlus size={16} /> Sign Up
               </Link>
@@ -314,7 +314,7 @@ export default function Navbar() {
                     onClick={() => setDropdownOpen(false)}
                   />
                   <div className="absolute right-0 mt-3 w-72 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 overflow-hidden animate-fade-in">
-                    <div className="p-4 bg-gradient-to-r from-[#35556e] to-[#4a8bb8] text-white">
+                    <div className="p-4 bg-linear-to-r from-[#35556e] to-[#4a8bb8] text-white">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-lg">
                           {user.photoURL ? (

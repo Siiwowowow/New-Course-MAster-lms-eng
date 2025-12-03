@@ -27,7 +27,8 @@ export default function DashboardLayout({ children }) {
 
   return (
     <AuthProvider>
-      <div className="flex min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 transition-all duration-300">
+      <div className="flex min-h-screen bg-linear-to-br from-blue-50 to-purple-50 transition-all duration-300">
+
        
         
         <DashboardSidebar open={open} setOpen={setOpen} />
