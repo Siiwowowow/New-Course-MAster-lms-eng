@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Home,
@@ -18,23 +18,71 @@ import {
 } from "lucide-react";
 import { AuthContext } from "@/context/AuthContext";
 import Image from "next/image";
+import useRole from "@/hooks/useRole";
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, logOut } = useContext(AuthContext);
+  const { role } = useRole(); // Get dynamic role from useRole hook
+  
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState("");
   const [avatarError, setAvatarError] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Generate random avatar from DiceBear API or use local fallback
+  // Deterministic color based on user's email or name
+  const getAvatarColor = useMemo(() => {
+    if (!user) return "bg-gradient-to-br from-gray-400 to-gray-600";
+    
+    const seed = user.email || user.displayName || "default";
+    
+    const colors = [
+      "bg-gradient-to-br from-red-400 to-red-600",
+      "bg-gradient-to-br from-orange-400 to-orange-600",
+      "bg-gradient-to-br from-amber-400 to-amber-600",
+      "bg-gradient-to-br from-yellow-400 to-yellow-600",
+      "bg-gradient-to-br from-lime-400 to-lime-600",
+      "bg-gradient-to-br from-green-400 to-green-600",
+      "bg-gradient-to-br from-emerald-400 to-emerald-600",
+      "bg-gradient-to-br from-teal-400 to-teal-600",
+      "bg-gradient-to-br from-cyan-400 to-cyan-600",
+      "bg-gradient-to-br from-blue-400 to-blue-600",
+      "bg-gradient-to-br from-indigo-400 to-indigo-600",
+      "bg-gradient-to-br from-violet-400 to-violet-600",
+      "bg-gradient-to-br from-purple-400 to-purple-600",
+      "bg-gradient-to-br from-fuchsia-400 to-fuchsia-600",
+      "bg-gradient-to-br from-pink-400 to-pink-600",
+      "bg-gradient-to-br from-rose-400 to-rose-600",
+    ];
+    
+    // Create a deterministic hash from the seed
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) {
+      const char = seed.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    
+    const index = Math.abs(hash) % colors.length;
+    return colors[index];
+  }, [user]);
+
+  // Generate deterministic avatar from DiceBear API
   useEffect(() => {
     if (!user?.photoURL) {
       const avatars = ["adventurer", "avataaars", "micah", "bottts", "fun-emoji", "lorelei"];
-      const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
-      const randomSeed = Math.random().toString(36).substring(7);
-      const url = `https://api.dicebear.com/7.x/${randomAvatar}/svg?seed=${randomSeed}`;
+      const seed = user?.email || user?.displayName || "default";
+      
+      // Create deterministic hash for avatar selection
+      let hash = 0;
+      for (let i = 0; i < seed.length; i++) {
+        hash = seed.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      const avatarIndex = Math.abs(hash) % avatars.length;
+      const selectedAvatar = avatars[avatarIndex];
+      
+      const url = `https://api.dicebear.com/7.x/${selectedAvatar}/svg?seed=${seed}`;
 
       const timer = setTimeout(() => {
         setAvatarUrl(url);
@@ -117,27 +165,29 @@ export default function Navbar() {
     return 'U';
   };
 
-  useEffect(() => {
-  if (!user?.photoURL) {
-    // Compute avatar URL outside setState
-    const avatars = ["adventurer", "avataaars", "micah", "bottts", "fun-emoji", "lorelei"];
-    const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
-    const randomSeed = Math.random().toString(36).substring(7);
-    const url = `https://api.dicebear.com/7.x/${randomAvatar}/svg?seed=${randomSeed}`;
+  // Format role for display
+  const formatRole = (role) => {
+    return role.charAt(0).toUpperCase() + role.slice(1);
+  };
 
-    // Defer state update to next tick
-    const timer = setTimeout(() => {
-      setAvatarUrl(url);
-    }, 0);
+  // Get role-specific badge color
+  const getRoleBadgeColor = (role) => {
+    switch(role) {
+      case 'admin':
+        return { bg: 'bg-red-100', text: 'text-red-700', border: 'border-red-200' };
+      case 'teacher':
+        return { bg: 'bg-green-100', text: 'text-green-700', border: 'border-green-200' };
+      case 'student':
+        return { bg: 'bg-blue-100', text: 'text-blue-700', border: 'border-blue-200' };
+      default:
+        return { bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-gray-200' };
+    }
+  };
 
-    return () => clearTimeout(timer);
-  }
-}, [user]);
+  const roleBadge = getRoleBadgeColor(role);
 
   return (
-    // CHANGED: Added sticky container with proper positioning
     <div className="sticky top-0 z-50 w-full">
-      {/* CHANGED: Removed sticky from inner div, added shadow directly based on scroll */}
       <div className={`navbar w-full bg-base-100 transition-all duration-300 ${
         scrolled 
           ? "shadow-lg bg-white/95 backdrop-blur-sm border-b border-gray-200" 
@@ -220,16 +270,21 @@ export default function Navbar() {
                       src={user.photoURL} 
                       alt="User Avatar" 
                       className="w-full h-full object-cover"
+                      unoptimized={true}
+                      onError={() => setAvatarError(true)}
                     />
                   ) : avatarUrl && !avatarError ? (
-                    <img 
+                    <Image 
+                      width={36} 
+                      height={36} 
                       src={avatarUrl} 
                       alt="Random Avatar" 
                       className="w-full h-full object-cover"
+                      unoptimized={true}
                       onError={() => setAvatarError(true)}
                     />
                   ) : (
-                    <div className={`w-full h-full flex items-center justify-center ${getRandomColor()} text-white font-semibold`}>
+                    <div className={`w-full h-full flex items-center justify-center ${getAvatarColor} text-white font-semibold`}>
                       {getUserInitials()}
                     </div>
                   )}
@@ -238,7 +293,9 @@ export default function Navbar() {
                   <span className="text-sm font-medium text-gray-800">
                     {user.displayName || user.email?.split('@')[0]}
                   </span>
-                  <span className="text-xs text-gray-500">Student</span>
+                  <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium capitalize ${roleBadge.bg} ${roleBadge.text} ${roleBadge.border} border`}>
+                    {formatRole(role)}
+                  </span>
                 </div>
                 <svg 
                   className={`w-4 h-4 text-gray-500 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} 
@@ -267,15 +324,21 @@ export default function Navbar() {
                               src={user.photoURL} 
                               alt="User Avatar" 
                               className="w-full h-full object-cover"
+                              unoptimized={true}
+                              onError={() => setAvatarError(true)}
                             />
                           ) : avatarUrl && !avatarError ? (
-                            <img 
+                            <Image 
+                              width={48} 
+                              height={48} 
                               src={avatarUrl} 
                               alt="Random Avatar" 
                               className="w-full h-full object-cover"
+                              unoptimized={true}
+                              onError={() => setAvatarError(true)}
                             />
                           ) : (
-                            <div className={`w-full h-full flex items-center justify-center ${getRandomColor()} text-white font-semibold text-lg`}>
+                            <div className={`w-full h-full flex items-center justify-center ${getAvatarColor} text-white font-semibold text-lg`}>
                               {getUserInitials()}
                             </div>
                           )}
@@ -287,6 +350,9 @@ export default function Navbar() {
                           <p className="text-sm text-white/90 truncate">
                             {user.email || "student@coursemaster.com"}
                           </p>
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize mt-1 inline-block ${roleBadge.bg} ${roleBadge.text} ${roleBadge.border} border`}>
+                            {formatRole(role)}
+                          </span>
                         </div>
                       </div>
                     </div>
