@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react'
 
 export default function Review() {
@@ -39,7 +40,7 @@ export default function Review() {
   const CreateCard = ({ card }) => (
     <div className="p-4 rounded-lg mx-4 shadow hover:shadow-lg transition-all duration-200 w-72 shrink-0 bg-white">
       <div className="flex gap-2">
-        <img className="size-11 rounded-full" src={card.image} alt="User Image" />
+        <Image width={120} height={220} className="size-11 rounded-full" src={card.image} alt="User Image" />
         <div className="flex flex-col">
           <div className="flex items-center gap-1">
             <p className="font-medium">{card.name}</p>
@@ -108,7 +109,7 @@ export default function Review() {
 
       {/* ===== Marquee Row 1 ===== */}
       <div className="marquee-row w-full mx-auto max-w-full overflow-hidden relative">
-        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent"></div>
+        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-linear-to-r from-white to-transparent"></div>
 
         <div className="marquee-inner flex transform-gpu min-w-[200%] pt-6 pb-5">
           {[...cardsData, ...cardsData].map((card, index) => (
@@ -116,12 +117,12 @@ export default function Review() {
           ))}
         </div>
 
-        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent"></div>
+        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-linear-to-r from-white to-transparent"></div>
       </div>
 
       {/* ===== Marquee Row 2 (Reverse) ===== */}
       <div className="marquee-row w-full mx-auto max-w-full overflow-hidden relative">
-        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent"></div>
+        <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-linear-to-r from-white to-transparent"></div>
 
         <div className="marquee-inner marquee-reverse flex transform-gpu min-w-[200%] pt-6 pb-5">
           {[...cardsData, ...cardsData].map((card, index) => (
@@ -129,7 +130,7 @@ export default function Review() {
           ))}
         </div>
 
-        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent"></div>
+        <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-linear-to-r from-white to-transparent"></div>
       </div>
     </>
   )

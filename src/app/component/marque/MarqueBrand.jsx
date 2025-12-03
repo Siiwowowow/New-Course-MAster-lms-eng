@@ -56,7 +56,7 @@ export default function MarqueBrand() {
 
           {/* Left Gradient */}
           <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none 
-                          bg-gradient-to-r from-white to-transparent" />
+                          bg-linear-to-r from-white to-transparent" />
 
           {/* Marquee Content */}
           <div
@@ -81,7 +81,7 @@ export default function MarqueBrand() {
 
           {/* Right Gradient */}
           <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none 
-                          bg-gradient-to-l from-white to-transparent" />
+                          bg-linear-to-l from-white to-transparent" />
         </div>
       </section>
     </>
