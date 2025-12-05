@@ -25,8 +25,7 @@ const PaymentSchema = new mongoose.Schema({
   },
   paymentIntentId: { 
     type: String, 
-    required: true, 
-    unique: true 
+    required: true
   },
   status: { 
     type: String, 
@@ -47,7 +46,7 @@ const PaymentSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for faster queries
+// Indexes
 PaymentSchema.index({ userEmail: 1, courseId: 1 });
 PaymentSchema.index({ paymentIntentId: 1 }, { unique: true });
 

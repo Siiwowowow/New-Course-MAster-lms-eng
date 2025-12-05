@@ -251,7 +251,7 @@ useEffect(() => {
      { href: "/", label: "Home", icon: <FaHome /> },
       { href: "/dashboard/admin/createCourse", label: "Create Course", icon: <FaPlusCircle /> },
       { href: "/dashboard/admin/all-courses", label: "All Courses", icon: <FaBook /> },
-      { href: "/dashboard/admin/batches", label: "Manage Batches", icon: <FaCalendarAlt /> },
+      { href: "/dashboard/admin/all-assignment", label: "All Assignment", icon: <FaCalendarAlt /> },
       { href: "/dashboard/admin/enrollments", label: "Enrollment Management", icon: <FaUserGraduate /> },
       
     ],
@@ -271,7 +271,7 @@ useEffect(() => {
       { href: "/", label: "Home", icon: <FaHome /> },
       { href: "/dashboard/student/overview", label: "Dashboard", icon: <FaChartLine /> },
       { href: "/dashboard/student/my-courses", label: "My Courses", icon: <FaBook /> },
-      { href: "/dashboard/student/classes", label: "Classes", icon: <FaGraduationCap /> },
+      // { href: "/dashboard/student/classes", label: "Classes", icon: <FaGraduationCap /> },
       
       { href: "/dashboard/student/assignments", label: "Assignments", icon: <FaTasks /> },
       { href: "/dashboard/student/quiz", label: "Quiz", icon: <FaFileAlt /> },

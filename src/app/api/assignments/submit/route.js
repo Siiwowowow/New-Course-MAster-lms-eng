@@ -2,6 +2,7 @@ import dbConnect from "@/lib/mongoose";
 import Submission from "@/models/Submission";
 import { NextResponse } from "next/server";
 
+// POST: Create new submission
 export async function POST(req) {
   try {
     await dbConnect();
@@ -40,6 +41,20 @@ export async function POST(req) {
     return NextResponse.json({ message: "Assignment submitted successfully" }, { status: 201 });
   } catch (error) {
     console.error("Submission Error:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+
+// GET: Fetch all submissions
+export async function GET() {
+  try {
+    await dbConnect();
+
+    const submissions = await Submission.find().sort({ createdAt: -1 }); // newest first
+
+    return NextResponse.json({ submissions }, { status: 200 });
+  } catch (error) {
+    console.error("Fetch Submissions Error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

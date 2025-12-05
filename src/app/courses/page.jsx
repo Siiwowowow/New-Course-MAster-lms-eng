@@ -56,7 +56,7 @@ export default function Courses() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [auth]);
 
   useEffect(() => {
     fetchCourses();
@@ -145,7 +145,7 @@ export default function Courses() {
   // Loading skeleton
   if (loading && courses.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-6">
+      <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="animate-pulse">
             <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
@@ -166,7 +166,7 @@ export default function Courses() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-4 md:p-6">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header with User Info */}
         <div className="mb-8">
@@ -183,7 +183,7 @@ export default function Courses() {
             {user && (
               <div className="bg-white rounded-xl shadow p-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                     <span className="text-white font-bold">
                       {user.email?.charAt(0).toUpperCase()}
                     </span>
@@ -369,7 +369,7 @@ export default function Courses() {
                 {/* Purchased Badge */}
                 {purchased && (
                   <div className="absolute top-4 right-4 z-10">
-                    <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg flex items-center gap-1">
+                    <div className="bg-linear-to-r from-green-500 to-emerald-600 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg flex items-center gap-1">
                       <CheckCircle size={12} />
                       Purchased
                     </div>
@@ -377,7 +377,7 @@ export default function Courses() {
                 )}
 
                 {/* Course Thumbnail */}
-                <div className="relative h-56 w-full bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">
+                <div className="relative h-56 w-full bg-linear-to-br from-blue-50 to-indigo-100 overflow-hidden">
                   {thumbnail ? (
                     <Image
                       src={thumbnail}
@@ -393,7 +393,7 @@ export default function Courses() {
                   )}
                   
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
                   
                   {/* Category Badge */}
                   {course.category && (
@@ -421,7 +421,7 @@ export default function Courses() {
                       </div>
                     </div>
                     
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-2 min-h-10">
                       {course.description || 'No description available.'}
                     </p>
                     
@@ -474,7 +474,7 @@ export default function Courses() {
                   {purchased ? (
                     <Link
                       href={`/courses/${course._id}/learn`}
-                      className="block w-full text-center bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium py-3 px-4 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                      className="'block' w-full text-center bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium py-3 px-4 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
                     >
                       <BookOpen size={18} />
                       Continue Learning
@@ -483,7 +483,7 @@ export default function Courses() {
                     <div className="flex gap-3">
                       <Link
                         href={`/courses/${course._id}`}
-                        className="flex-1 text-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-3 px-4 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
+                        className="flex-1 text-center bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-3 px-4 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
                       >
                         View Details
                       </Link>
@@ -536,7 +536,7 @@ export default function Courses() {
                       onClick={() => handleFilterChange('page', pageNum)}
                       className={`w-10 h-10 rounded-lg transition ${
                         pagination.currentPage === pageNum 
-                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md' 
+                          ? 'bg-linear-to-r from-blue-600 to-indigo-600 text-white shadow-md' 
                           : 'border border-gray-300 hover:bg-gray-50'
                       }`}
                     >
@@ -564,7 +564,7 @@ export default function Courses() {
         {/* No Results */}
         {courses.length === 0 && !loading && (
           <div className="text-center py-16">
-            <div className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center">
+            <div className="w-32 h-32 mx-auto mb-6 bg-linear-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center">
               <Search className="w-16 h-16 text-blue-400" />
             </div>
             <h3 className="text-2xl font-semibold text-gray-700 mb-4">
@@ -578,7 +578,7 @@ export default function Courses() {
             <div className="flex gap-4 justify-center">
               <button
                 onClick={clearFilters}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition shadow-md"
+                className="px-6 py-3 bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition shadow-md"
               >
                 Clear all filters
               </button>
@@ -594,7 +594,7 @@ export default function Courses() {
 
         {/* User Enrollment Stats */}
         {user && purchasedCourseIds.length > 0 && (
-          <div className="mt-12 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 text-white">
+          <div className="mt-12 bg-linear-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 text-white">
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="mb-4 md:mb-0">
                 <div className="flex items-center gap-2 mb-2">
