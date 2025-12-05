@@ -2,14 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import PaymentModal from "@/app/component/paymentModal/paymentmodal";
 import { Star, Users } from "lucide-react";
+import useAuth from "@/hooks/useAuth"; // your auth hook
 
 export default function CourseDetails() {
   const { id } = useParams();
+  const router = useRouter();
+  const { user, dbUser, loading: authLoading } = useAuth();
+
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -34,6 +38,19 @@ export default function CourseDetails() {
     };
     fetchCourse();
   }, [id]);
+
+  const handleEnroll = () => {
+    if (authLoading) return; // wait for auth
+
+    if (!user && !dbUser) {
+      // Not logged in → redirect to login with redirect back
+      router.push(`/login?from=${encodeURIComponent(`/courses/${id}`)}`);
+      return;
+    }
+
+    // Logged in → open payment modal
+    setShowModal(true);
+  };
 
   if (loading)
     return (
@@ -92,15 +109,13 @@ export default function CourseDetails() {
             </div>
 
             <div className="text-2xl font-bold text-indigo-600">
-              {course.price === 0
-                ? "Free"
-                : `$${Number(course.price).toFixed(2)}`}
+              {course.price === 0 ? "Free" : `$${Number(course.price).toFixed(2)}`}
             </div>
           </div>
 
           {/* Enroll Button */}
           <button
-            onClick={() => setShowModal(true)}
+            onClick={handleEnroll}
             className="mt-4 w-full md:w-auto px-6 py-3 rounded-lg text-white font-semibold bg-indigo-600 hover:bg-indigo-700 transition"
           >
             Enroll Now
