@@ -272,10 +272,9 @@ useEffect(() => {
       { href: "/dashboard/student/overview", label: "Dashboard", icon: <FaChartLine /> },
       { href: "/dashboard/student/my-courses", label: "My Courses", icon: <FaBook /> },
       { href: "/dashboard/student/classes", label: "Classes", icon: <FaGraduationCap /> },
-      { href: "/dashboard/student/attendance", label: "Attendance", icon: <FaRegCalendarCheck /> },
+      
       { href: "/dashboard/student/assignments", label: "Assignments", icon: <FaTasks /> },
-      { href: "/dashboard/student/grades", label: "Grades", icon: <FaFileAlt /> },
-      { href: "/dashboard/student/schedule", label: "Schedule", icon: <FaCalendarAlt /> },
+      { href: "/dashboard/student/quiz", label: "Quiz", icon: <FaFileAlt /> },
       { href: "/dashboard/student/profile", label: "Profile", icon: <FaUser /> },
     ],
     user: [
