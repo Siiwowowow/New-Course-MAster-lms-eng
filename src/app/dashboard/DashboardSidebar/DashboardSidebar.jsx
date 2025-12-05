@@ -248,11 +248,11 @@ useEffect(() => {
 
   const linksConfig = {
     admin: [
-      { href: "/", label: "Home", icon: <FaHome /> },
-      { href: "/dashboard/admin/create", label: "Student Management", icon: <FaUsers /> },
-      { href: "/dashboard/admin/courses", label: "Courses", icon: <FaBook /> },
-      { href: "/dashboard/admin/reports", label: "Assignment", icon: <FaFileAlt /> },
-      { href: "/dashboard/admin/overview", label: "Analytics", icon: <FaChartLine /> },
+     { href: "/", label: "Home", icon: <FaHome /> },
+      { href: "/dashboard/admin/createCourse", label: "Create Course", icon: <FaPlusCircle /> },
+      { href: "/dashboard/admin/all-courses", label: "All Courses", icon: <FaBook /> },
+      { href: "/dashboard/admin/batches", label: "Manage Batches", icon: <FaCalendarAlt /> },
+      { href: "/dashboard/admin/enrollments", label: "Enrollment Management", icon: <FaUserGraduate /> },
       
     ],
     teacher: [
